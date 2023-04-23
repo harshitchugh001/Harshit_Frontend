@@ -17,11 +17,7 @@ function Navbar(props) {
                                     <div className="nav-link active" aria-current="page" >Output</div>
                                 </li>
                             </Link>
-                            <Link to="/answer" style={{ textDecoration: 'none' }}>
-                                <li className="nav-item" style={{ textDecoration: 'none' }}>
-                                    <div className="nav-link active" style={{ textDecoration: 'none' }} aria-current="page">Answers</div>
-                                </li>
-                            </Link>
+                            
                         </ul>
 
                         <div className={`form-check form-switch text-${props.mode === 'light' ? 'dark' : 'light'}`}>

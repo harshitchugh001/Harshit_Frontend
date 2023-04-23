@@ -2,7 +2,6 @@ import { useState } from "react";
 // import List from "./components/List";
 import Main from "./components/Main";
 import Navbar from "./components/Navbar";
-import Answer from "./components/Answer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -23,7 +22,7 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
-            <Route path="/answer" element={[<Navbar title="SteelEye Assignment" mode={mode} toggleMode={toggleMode} heading={""}/>, <Answer mode={mode} />]} />
+            <Route path="/answer" element={[<Navbar title="SteelEye Assignment" mode={mode} toggleMode={toggleMode} heading={""}/> ]} />
             <Route path="/" element={[<Navbar title="SteelEye Assignment" mode={mode} toggleMode={toggleMode} heading={"Output for this Assignment"}/>, <div className="container">
               <Main mode={mode}></Main>
             </div>]} />
