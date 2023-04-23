@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+#1.Explain what the simple List component does.
+ans:--The List component is a functional component that receives an array of objects named "items" as a prop. Each object in the array contains a string field named "text". The List component uses the useState hook to declare a state variable called "selectedIndex", which is used to keep track of the index of the selected item.
+In addition, the List component uses the useEffect hook with "selectedIndex" as a dependency. This means that the useEffect function is called when the page loads for the first time, and then each time the "selectedIndex" state variable is updated.
+The List component also includes a function called "handleClick", which is passed to the SingleList component. This function is called when a list item is clicked, and it takes the index of the clicked item as an argument. If the clicked item's index is not equal to the current "selectedIndex" value, the "handleClick" function sets the "selectedIndex" state variable to the clicked item's index using the "setSelectedIndex" setter function. If the clicked item's index is equal to the current "selectedIndex" value, the "handleClick" function sets the "selectedIndex" state variable to an empty value, which unselects the item.
+The List component returns an unordered list that iterates over the "items" array using the JavaScript map function. The SingleList component is used as a reusable component that takes several props, including "onClickHandler", which is a function that is required to be passed to handle the click event of each list item. The SingleList component also takes props for "text", "index", and "isSelected". Both the List and SingleList components are wrapped in the React-memo function to optimize performance by preventing unnecessary re-renders.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#2.What problems / warnings are there with code?
+1- The useState hook is used incorrectly and variable selectedIndex and setSelectedIndex should be interchanged
+const [selectedIndex, setSelectedIndex] = useState();
 
-## Available Scripts
+2- handleClick function should be changed as the index should selected and null when its is clicked again as functionality.
 
-In the project directory, you can run:
+const handleClick = (index) => {
+  if(index === selectedIndex){
+    setSelectedIndex()
+  }else{
+    setSelectedIndex(index);
+  }
+};
 
-### `npm start`
+3- while mapping items a unique value should be passed as key which will be index or else it will give a warning.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<SingleListItem
+          key={index}
+          onClickHandler={() => handleClick(index)}
+          text={item.text}
+          index={index}
+          isSelected={selectedIndex===index}
+        />
+  
+  4- As isSelected should be an Boolean and should be true when selectedIndex is equal to index and false when selectedIndex is not equal to index.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<SingleListItem
+          key={index}
+          onClickHandler={() => handleClick(index)}
+          text={item.text}
+          index={index}
+          isSelected={selectedIndex===index}
+        />
+5- The array in prop type should Arrayof instead of shapedOf and shapeOf should be shape which gives warning.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+WrappedListComponent.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    text: PropTypes.string.isRequired,
+  })).isRequired,
+};
+#3. Please fix, optimize, and/or modify the component as much as you think is necessary.
+  
+  deployment Link:-https://poetic-bunny-de3f32.netlify.app/
